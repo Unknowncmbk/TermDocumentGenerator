@@ -47,49 +47,10 @@ public class TDGenerator {
 		System.out.println("\nInput: ");
 		String input = console.nextLine();
 
-		/*
-		 * Test input strings for hard coding input files
-		 */
-		// String testInput =
-		// "/Users/rya_kenshin2/Desktop/TestDocuments/Doc1.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc2.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc3.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc4.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc5.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc6.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc7.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc8.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc9.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc10.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc11.txt "
-		// + "/Users/rya_kenshin2/Desktop/TestDocuments/Doc12.txt";
-
-		// File file1 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc1.txt");
-		// File file2 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc2.txt");
-		// File file3 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc3.txt");
-		// File file4 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc4.txt");
-		// File file5 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc5.txt");
-		// File file6 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc6.txt");
-		// File file7 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc7.txt");
-		// File file8 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc8.txt");
-		// File file9 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc9.txt");
-		// File file10 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc10.txt");
-		// File file11 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc11.txt");
-		// File file12 = new
-		// File("/Users/rya_kenshin2/Desktop/TestDocuments/Doc12.txt");
-		// List<File> allFiles = Arrays.asList(file1, file2, file3, file4,
-		// file5, file6, file7, file8, file9, file10, file11, file12);
+		System.out.println("\nPlease enter the file location you would like the generated document to go. ");
+		System.out.println("The full /path/to/file is needed.");
+		System.out.println("\nInput: ");
+		String saveLoc = console.nextLine();
 
 		long startTime = System.currentTimeMillis();
 
@@ -124,9 +85,9 @@ public class TDGenerator {
 		// try writing to file
 		try {
 			// want a document-term matrix A (which is just the term freq)
-			writeToFile(new File("/Users/rya_kenshin2/Desktop/TestDocuments/output/TermMatrixA"), false);
+			writeToFile(new File(saveLoc), false);
 			// want a document-term matrix B (which is
-			writeToFile(new File("/Users/rya_kenshin2/Desktop/TestDocuments/output/TermMatrixAPrime"), true);
+			writeToFile(new File(saveLoc + "Prime"), true);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -291,42 +252,6 @@ public class TDGenerator {
 
 			writer.append('\n');
 		}
-
-		// for (Document d : documents) {
-		// // for each term
-		// String n = d.documentName.replaceAll(".txt", "");
-		// /*
-		// * Row declaration (doc name)
-		// */
-		// // writer.append(n);
-		// // writer.append(',');
-		// for (String term : totalTerms) {
-		// // the term freq map
-		// Map<String, Integer> map = d.termFrequency;
-		//
-		// // value that goes in the matrix
-		// double amount = 0;
-		//
-		// // if computing tf-idf
-		// if (invDocFreq) {
-		// int occur = 0;
-		// if (map.containsKey(term)) {
-		// occur = map.get(term);
-		// }
-		// // value should be the tf-idf
-		// amount = computeInvDocFreq(term, occur);
-		// }
-		// else {
-		// if (map.containsKey(term)) {
-		// amount = map.get(term);
-		// }
-		// }
-		//
-		// writer.append(String.valueOf(amount));
-		// writer.append(',');
-		// }
-		// writer.append('\n');
-		// }
 
 		writer.flush();
 		writer.close();
