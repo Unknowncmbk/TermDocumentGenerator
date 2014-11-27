@@ -91,6 +91,8 @@ public class TDGenerator {
 		// List<File> allFiles = Arrays.asList(file1, file2, file3, file4,
 		// file5, file6, file7, file8, file9, file10, file11, file12);
 
+		long startTime = System.currentTimeMillis();
+
 		// split regex from
 		// http://stackoverflow.com/questions/16483418/split-string-on-spaces-except-file-paths
 		String[] inputParts = input.split("(?<!\\\\)\\s+");
@@ -101,7 +103,7 @@ public class TDGenerator {
 		}
 
 		// show the user the arguments they passed in
-		for (int i = 0; i < inputParts.length - 1; i++) {
+		for (int i = 0; i < inputParts.length; i++) {
 			System.out.println("Args[" + i + "]: " + inputParts[i]);
 		}
 		System.out.println();
@@ -129,6 +131,8 @@ public class TDGenerator {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		System.out.println("(" + (System.currentTimeMillis() - startTime) + " msecs)");
 	}
 
 	/**
@@ -240,25 +244,26 @@ public class TDGenerator {
 		}
 
 		/*
-		 * Column Declaration (term name)
+		 * Column Declaration (document name)
 		 */
-		// writer.append(" ");
-		// writer.append(',');
-		// for (String term : totalTerms) {
-		// writer.append(term);
-		// writer.append(',');
-		// }
-		// writer.append('\n');
-
+		writer.append(" ");
+		writer.append(',');
 		for (Document d : documents) {
-			// for each term
 			String n = d.documentName.replaceAll(".txt", "");
+			writer.append(n);
+			writer.append(',');
+		}
+		writer.append('\n');
+
+		// for each term in terms
+		for (String term : totalTerms) {
 			/*
 			 * Row declaration (doc name)
 			 */
-			// writer.append(n);
-			// writer.append(',');
-			for (String term : totalTerms) {
+			writer.append(term);
+			writer.append(',');
+			// for each document
+			for (Document d : documents) {
 				// the term freq map
 				Map<String, Integer> map = d.termFrequency;
 
@@ -283,8 +288,45 @@ public class TDGenerator {
 				writer.append(String.valueOf(amount));
 				writer.append(',');
 			}
+
 			writer.append('\n');
 		}
+
+		// for (Document d : documents) {
+		// // for each term
+		// String n = d.documentName.replaceAll(".txt", "");
+		// /*
+		// * Row declaration (doc name)
+		// */
+		// // writer.append(n);
+		// // writer.append(',');
+		// for (String term : totalTerms) {
+		// // the term freq map
+		// Map<String, Integer> map = d.termFrequency;
+		//
+		// // value that goes in the matrix
+		// double amount = 0;
+		//
+		// // if computing tf-idf
+		// if (invDocFreq) {
+		// int occur = 0;
+		// if (map.containsKey(term)) {
+		// occur = map.get(term);
+		// }
+		// // value should be the tf-idf
+		// amount = computeInvDocFreq(term, occur);
+		// }
+		// else {
+		// if (map.containsKey(term)) {
+		// amount = map.get(term);
+		// }
+		// }
+		//
+		// writer.append(String.valueOf(amount));
+		// writer.append(',');
+		// }
+		// writer.append('\n');
+		// }
 
 		writer.flush();
 		writer.close();
